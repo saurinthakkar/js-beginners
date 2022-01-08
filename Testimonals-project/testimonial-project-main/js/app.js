@@ -40,8 +40,8 @@ const quoteVar = [
 
 let len = quoteVar.length;
 
-buttons.forEach(function (button) {
-  button.addEventListener("click", function () {
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
     if (button.classList.contains("nextBtn")) {
       count++;
       console.log(len);
