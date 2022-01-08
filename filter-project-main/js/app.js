@@ -51,7 +51,7 @@ const buttons = document.querySelectorAll("a.btn");
 const storeItem = document.querySelectorAll(".store-item");
 
 buttons.forEach((button) => {
-  button.addEventListener("click", function (e) {
+  button.addEventListener("click", (e) => {
     e.preventDefault();
     let filter = e.target.dataset.filter;
     console.log(filter);
