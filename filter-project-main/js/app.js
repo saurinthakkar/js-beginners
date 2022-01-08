@@ -50,12 +50,12 @@
 const buttons = document.querySelectorAll("a.btn");
 const storeItem = document.querySelectorAll(".store-item");
 
-buttons.forEach(function (button) {
+buttons.forEach((button) => {
   button.addEventListener("click", function (e) {
     e.preventDefault();
     let filter = e.target.dataset.filter;
     console.log(filter);
-    storeItem.forEach(function (item) {
+    storeItem.forEach((item) => {
       if (filter === "all") {
         //console.log(item);
         item.style.display = "block";
