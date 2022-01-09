@@ -7,7 +7,7 @@ const lightboxCtrl = document.querySelectorAll(".lightbox-control");
 // const leftbtn = document.querySelector("btnLeft");
 // const rightbtn = document.querySelector("btnright");
 let imglist = [];
-let count;
+let count = 0;
 
 imgStore.forEach((image) => {
   imglist.push(image.src);
@@ -21,7 +21,7 @@ imgStore.forEach((item) => {
     //console.log(item);
     let selImage = e.target.src;
 
-    let image = lightboxCont.classList.add("show");
+    lightboxCont.classList.add("show");
     lightboxItem.style.backgroundImage = "url(" + selImage + ")";
     count = imglist.indexOf(selImage);
     //console.log(count);
