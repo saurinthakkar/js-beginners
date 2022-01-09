@@ -14,17 +14,17 @@ imgStore.forEach((image) => {
 });
 let len = imglist.length;
 
-console.log(imglist);
+//console.log(imglist);
 
 imgStore.forEach((item) => {
   item.addEventListener("click", (e) => {
-    console.log(item);
+    //console.log(item);
     let selImage = e.target.src;
 
     let image = lightboxCont.classList.add("show");
     lightboxItem.style.backgroundImage = "url(" + selImage + ")";
     count = imglist.indexOf(selImage);
-    console.log(count);
+    //console.log(count);
   });
 });
 
@@ -42,7 +42,7 @@ lightboxCtrl.forEach((button) => {
         count = 0;
       }
       //console.log(imglist[count], count);
-      console.log(imglist[count]);
+      //console.log(imglist[count]);
       lightboxItem.style.backgroundImage = "url(" + imglist[count] + ")";
       //console.log(count);
     } else if (button.classList.contains("btnLeft")) {
@@ -50,8 +50,7 @@ lightboxCtrl.forEach((button) => {
       if (count < 0) {
         count = len - 1;
       }
-      //console.log(imglist[count], count);
-      console.log(imglist[count]);
+
       lightboxItem.style.backgroundImage = "url(" + imglist[count] + ")";
       //console.log(count);
     }
