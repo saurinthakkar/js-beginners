@@ -26,7 +26,9 @@ keys.addEventListener("click", (e) => {
       action === "multiply" ||
       action === "divide"
     ) {
-      console.log("operator key");
+      //console.log(key);
+      key.classList.add("is-depressed");
+      calculator.dataset.previousKeyType = "operator";
     }
     if (action === "decimal") {
       //console.log("decimal key");
@@ -39,5 +41,8 @@ keys.addEventListener("click", (e) => {
     if (action == "calculate") {
       console.log("equal key");
     }
+    Array.from(key.parentNode.children).forEach((k) =>
+      k.classList.remove("is-depressed")
+    );
   }
 });
