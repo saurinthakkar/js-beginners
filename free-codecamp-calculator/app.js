@@ -1,48 +1,54 @@
 const calculator = document.querySelector(".calculator");
-const keys = document.querySelector(".calculator__keys");
-const display = document.querySelector(".calculator__display");
+const keys = calculator.querySelector(".calculator__keys");
+const display = calculator.querySelector(".calculator__display");
 //console.log(calculator, keys);
 console.log(display);
 
-keys.addEventListener("click", (e) => {
-  if (e.target.matches("button")) {
-    //console.log("button");
-    const key = e.target;
-    const action = key.dataset.action;
-    const keyContent = key.textContent;
-    const displayNum = display.textContent;
-    //console.log(keyContent, displayNum);
-    if (!action) {
-      //console.log("Number key");
-      if (displayNum === "0") {
-        display.textContent = keyContent;
-      } else {
-        display.textContent += keyContent;
-      }
+keys.addEventListener("click", (event) => {
+  if (!event.target.closest("button")) return;
+
+  const key = event.target;
+  const keyValue = key.textContent;
+  const displayValue = display.textContent;
+  const { type } = key.dataset;
+  const { previousKeyType } = calculator.dataset;
+
+  if (type === "number") {
+    if (displayValue === "0" || previousKeyType === "operator") {
+      display.textContent = keyValue;
+    } else {
+      display.textContent = displayValue + keyValue;
     }
-    if (
-      action === "add" ||
-      action === "subtract" ||
-      action === "multiply" ||
-      action === "divide"
-    ) {
-      //console.log(key);
-      key.classList.add("is-depressed");
-      calculator.dataset.previousKeyType = "operator";
-    }
-    if (action === "decimal") {
-      //console.log("decimal key");
-      display.textContent = displayNum + ".";
-    }
-    if (action === "clear") {
-      display.textContent = "0";
-      //console.log("clear key");
-    }
-    if (action == "calculate") {
-      console.log("equal key");
-    }
-    Array.from(key.parentNode.children).forEach((k) =>
-      k.classList.remove("is-depressed")
-    );
   }
+
+  if (type === "operator") {
+    const operatorKeys = keys.querySelectorAll('[data-type="operator"]');
+    operatorKeys.forEach((el) => {
+      el.dataset.state = "";
+    });
+    key.dataset.state = "selected";
+
+    calculator.dataset.firstNumber = displayValue;
+    calculator.dataset.operator = key.dataset.key;
+  }
+
+  if (type === "equal") {
+    // Perform a calculation
+    const firstNumber = calculator.dataset.firstNumber;
+    const operator = calculator.dataset.operator;
+    const secondNumber = displayValue;
+    display.textContent = calculate(firstNumber, operator, secondNumber);
+  }
+
+  calculator.dataset.previousKeyType = type;
 });
+
+function calculate(firstNumber, operator, secondNumber) {
+  firstNumber = parseInt(firstNumber);
+  secondNumber = parseInt(secondNumber);
+
+  if (operator === "plus") return firstNumber + secondNumber;
+  if (operator === "minus") return firstNumber - secondNumber;
+  if (operator === "times") return firstNumber * secondNumber;
+  if (operator === "divide") return firstNumber / secondNumber;
+}
